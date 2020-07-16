@@ -1,0 +1,6 @@
+"Employee","Bob","Smith","123 Sesame Street","123-123-1234","bsmith@test.com","1"
+"Employee","Sally","Smith","234 Sesame Street","234-123-1234","ssmith@test.com","2"
+"Vendor","Marsha","Smith","345 Sesame Street","345-123-1234","msmith@test.com","1"
+"Vendor","Jonathan","Smith","456 Sesame Street","456-123-1234","jsmith@test.com","2"
+"Customer","Brenda","Smith","567 Sesame Street","567-123-1234","brsmith@test.com","1"
+"Customer","Rachel","Smith","678 Sesame Street","678-123-1234","rsmith@test.com","2"
