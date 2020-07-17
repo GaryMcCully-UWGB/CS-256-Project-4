@@ -5,11 +5,15 @@ public class Person
   public String address;
   public String phoneNumber;
   public String emailAddress;
-  public String orgRelationship;
 
-  public void setRelationshipType()
+  public String setID()
   {
-    //
+    return "";
+  }
+  
+  public String setRelationshipType()
+  {
+    return "";
   }
   
   public String newUser()
@@ -24,6 +28,12 @@ public class Person
     this.address=newAddress;
     this.phoneNumber=newPhoneNumber;
     this.emailAddress=newEmailAddress;
+
+    System.out.println("First Name is "+ this.firstName);
+    System.out.println("Last Name is "+ this.lastName);
+    System.out.println("Address is "+this.address);
+    System.out.println("Phone Number is "+this.phoneNumber);
+    System.out.println("E-Mail Address is "+this.emailAddress);
 
     String formattedString= this.firstName+","+this.lastName+","+this.address+","+this.phoneNumber+","+this.emailAddress;
 

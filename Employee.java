@@ -1,21 +1,37 @@
 public class Employee extends Person
 {
   int employeeID;
-  public void setRelationshipType()
+  String strBaseBuildResults;
+  String strDatabaseType;
+  String strRetCreationData;
+  String orgRelationship;
+  int intEmployeeID;
+  String strEmployeeID;
+  String passedEmployeeID;
+  
+  public String setRelationshipType()
   {
-    String personType="Employee";
-    this.orgRelationship=personType;
-        System.out.println ("The relationship is "+this.orgRelationship);
+    orgRelationship="Employee";
+    System.out.println ("The database Type is "+orgRelationship);
+    
+    return orgRelationship;
   }
 
-  public void setID(int newID)
+  public String setID(int newID)
   {
-    this.employeeID=newID;
-    System.out.println ("New name is "+this.employeeID);
+    intEmployeeID=newID+1;
+    strEmployeeID=String.valueOf(intEmployeeID);
+    System.out.println ("Assigned Employee ID is "+strEmployeeID);
+    
+    return strEmployeeID;
   }
 
-  public String newUser(String first, String last, String address, String phone, String email)
+  public String newUser(String first, String last, String address, String phone, String email, int highID)
   {
-    return "";
+    strDatabaseType=setRelationshipType();
+    strBaseBuildResults=buildBaseUser(first, last, address, phone, email);
+    passedEmployeeID=setID(highID);
+    strRetCreationData=strDatabaseType+","+strBaseBuildResults+","+passedEmployeeID;
+    return strRetCreationData;
   }
 }

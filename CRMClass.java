@@ -120,8 +120,49 @@ public class CRMClass
 
   public void createDatabaseEntry()
   {
-    String[] empInfo=new String[9];
-    String[] orderInfoMessages={"First Name: ", "Last Name: ", "Number of Widgets: ", "Total Cost: $", "Shipping Address: ", "Shipping Zip Code: ", "Shipping State: ", "Invoicing E-mail: ", "Contact Phone Number: "};
+    System.out.println("Enter '1' for new employee.");
+    System.out.println("Enter '2' for new customer.");
+    System.out.println("Enter '3' for new vendor.");
+    
+    String strSelection=user_input.nextLine();
+    //Ensure string is not null or a non-number
+    if(strSelection.matches("^[1-3]{1}$"))
+    {
+      //Do nothing
+    }
+    else
+    {
+      System.out.println("Invalid selection.");
+      userMenu();
+    }
+
+    int intSelection = Integer.parseInt(strSelection);
+
+    switch(intSelection) 
+    {
+      case 1:
+        Employee employee=new Employee();
+        String[] empInfo=new String[5];
+        String[] orderInfoMessages={"First Name: ", "Last Name: ", "Address: ", "Phone Number: ", "E-Mail Address: "};
+
+        for(int i=0; i<5; i++)
+        {
+          System.out.println(orderInfoMessages[i]);
+          empInfo[i]=user_input.nextLine();
+        }
+     
+        String newUserCreation=employee.newUser(empInfo[0],empInfo[1],empInfo[2],empInfo[3], empInfo[4], currentEmpNumber);
+        crmDatabase.add(newUserCreation);
+        break;
+      case 2:
+        // code block
+        break;
+      default:
+      // code block
+    }
+  updateDatabase();
+  userMenu();
+
   }
 
   public void listPrintCRMDatabase()

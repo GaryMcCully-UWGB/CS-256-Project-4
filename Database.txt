@@ -4,3 +4,4 @@ Vendor,Marsha,Smith,345 Sesame Street,345-123-1234,msmith@test.com,1
 Vendor,Jonathan,Smith,456 Sesame Street,456-123-1234,jsmith@test.com,2
 Customer,Brenda,Smith,567 Sesame Street,567-123-1234,brsmith@test.com,1
 Customer,Rachel,Smith,678 Sesame Street,678-123-1234,rsmith@test.com,2
+Employee,Tom,Smith,123 Test Lane,444-444-4444,Test@test.com,3
