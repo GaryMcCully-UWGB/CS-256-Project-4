@@ -14,4 +14,9 @@ public class Customer extends Person
     this.customerID=newID;
     System.out.println ("New name is "+this.customerID);
   }
+
+  public String newUser(String first, String last, String address, String phone, String email)
+  {
+    return "";
+  }
 }

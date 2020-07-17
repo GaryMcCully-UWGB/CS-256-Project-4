@@ -8,11 +8,25 @@ public class Person
   public String orgRelationship;
 
   public void setRelationshipType()
-  {}
-
-  public void setName(String newName)
   {
-    this.firstName=newName;
-    System.out.println ("New name is "+this.firstName);
+    //
+  }
+  
+  public String newUser()
+  {
+    return "";
+  }
+
+  public String buildBaseUser(String newFirstName, String newLastName, String newAddress, String newPhoneNumber, String newEmailAddress)
+  {
+    this.firstName=newFirstName;
+    this.lastName=newLastName;
+    this.address=newAddress;
+    this.phoneNumber=newPhoneNumber;
+    this.emailAddress=newEmailAddress;
+
+    String formattedString= this.firstName+","+this.lastName+","+this.address+","+this.phoneNumber+","+this.emailAddress;
+
+    return formattedString;
   }
 }

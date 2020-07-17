@@ -9,9 +9,9 @@ public class CRMClass
 
   ArrayList<String> crmDatabase = new ArrayList<String>();
 
-  Customer customer = new Customer();
-  Employee employee = new Employee();
-  Vendor vendor = new Vendor();
+  int currentEmpNumber=0;
+  int currentCustNumber=0;
+  int currentVendNumber=0;
   
   public void updateDatabase()
   {
@@ -78,12 +78,10 @@ public class CRMClass
     String databaseEntry=crmDatabase.get(intSelection);
     System.out.println(databaseEntry);
     String strArray1[]= databaseEntry.split(",");
-    String typeNoQuotes = strArray1[0].replace("\"", "");
-    String strArray2[]={"Type","First Name", "Last Name", "Address", "Phone Number","E-mail Address", typeNoQuotes+" Number"};
+    String strArray2[]={"Type","First Name", "Last Name", "Address", "Phone Number","E-mail Address", strArray1[0]+" Number"};
 
-    String updatedEntry;
-
-    for(int j=0; j<7; j++)
+    /*The database type and number should not be edited.To avoid modification of these values, these fields are not presented to the end user during the update*/
+    for(int j=1; j<6; j++)
     {
         System.out.println(strArray2[j]+" value is "+strArray1[j]);
         System.out.println("Do you want to change this value? 'Y' for yes, 'N' for No");
@@ -106,20 +104,24 @@ public class CRMClass
 
     }
 
-    updatedEntry=strArray1[0]+","+strArray1[1]+","+strArray1[2]+","+strArray1[3]+","+strArray1[4]+","+strArray1[5]+","+strArray1[6];
+    String updatedEntry=strArray1[0]+","+strArray1[1]+","+strArray1[2]+","+strArray1[3]+","+strArray1[4]+","+strArray1[5]+","+strArray1[6];
+    crmDatabase.remove(intSelection);
     crmDatabase.add(intSelection, updatedEntry);
     databaseEntry=crmDatabase.get(intSelection);
     System.out.println(databaseEntry);
+
+    updateDatabase();
     userMenu();
   }
-
-  public void test()
+  public void deleteDatabaseEntry()
   {
-  //  Bob.setName("Bill");
-  //  System.out.println(Bob.firstName);
-  //  Bob.setID(123);
-  //  System.out.println(Bob.customerID);
-  //  Bob.setRelationshipType();
+    
+  }
+
+  public void createDatabaseEntry()
+  {
+    String[] empInfo=new String[9];
+    String[] orderInfoMessages={"First Name: ", "Last Name: ", "Number of Widgets: ", "Total Cost: $", "Shipping Address: ", "Shipping Zip Code: ", "Shipping State: ", "Invoicing E-mail: ", "Contact Phone Number: "};
   }
 
   public void listPrintCRMDatabase()
@@ -128,8 +130,7 @@ public class CRMClass
     {
       String strRawData=crmDatabase.get(i);
       String strArray1[]= strRawData.split(",");
-      String typeNoQuotes = strArray1[0].replace("\"", "");
-      String strArray2[]={"Type: ","First Name: ", "Last Name: ", "Address: ", "Phone Number: ","E-mail Address: ", typeNoQuotes+" Number: "};
+      String strArray2[]={"Type: ","First Name: ", "Last Name: ", "Address: ", "Phone Number: ","E-mail Address: ", strArray1[0]+" Number: "};
 
       System.out.println("\nDatabase Entry: " + i);
       for(int j=0; j<7; j++)
@@ -142,6 +143,8 @@ public class CRMClass
 
   public void loadDatabase()
   {
+    int intID;
+
     try
     {
       File database = new File("Database.txt");
@@ -149,17 +152,34 @@ public class CRMClass
       while (myReader.hasNextLine()) 
       {
         String data = myReader.nextLine();
+
+        //Parse out ID numbers to track next ID to be assigned
+        String strArray1[]= data.split(",");
+        intID = Integer.parseInt(strArray1[6]);
+
         if (data.contains("Employee"))
         {
           crmDatabase.add(data);
+          if(intID>currentEmpNumber)
+          {
+            currentEmpNumber=intID;
+          }
         }
         else if (data.contains ("Customer"))
         {
           crmDatabase.add(data);
+          if(intID>currentCustNumber)
+          {
+            currentCustNumber=intID;
+          }
         }
         else if (data.contains ("Vendor"))
         {
           crmDatabase.add(data);
+          if(intID>currentVendNumber)
+          {
+            currentVendNumber=intID;
+          }
         }
         else
         {
@@ -178,14 +198,17 @@ public class CRMClass
   //Method used to provide user options
   public void userMenu()
   {
-    System.out.println("Select '1' to Exit");
+    int intSelection;
+
+    System.out.println("\nSelect '1' to Exit");
     System.out.println("Select '2' to list the current user database");
     System.out.println("Select '3' to update a database entry");
     System.out.println("Select '4' to create a new database entry");
-    System.out.println("Select '5' to delete current database and re-write with updates");
+    System.out.println("Select '5' to delete a database entry");
+    System.out.println("Select '6' to delete current database and re-write with updates");
 
     String strSelection=user_input.nextLine();
-    if(strSelection.matches("^[1-5]{1}$"))
+    if(strSelection.matches("^[1-6]{1}$"))
     {
       //Do nothing
     }
@@ -194,7 +217,8 @@ public class CRMClass
       System.out.println("Invalid Selection");
       userMenu();
     }
-    int intSelection = Integer.parseInt(strSelection);
+
+    intSelection = Integer.parseInt(strSelection);
 
     if(intSelection==1)
     {
@@ -210,9 +234,13 @@ public class CRMClass
     }
     else if (intSelection==4)
     {
-
+      createDatabaseEntry();
     }
     else if (intSelection==5)
+    {
+      deleteDatabaseEntry();
+    }
+    else if (intSelection==6)
     {
       updateDatabase();
     }
