@@ -1,23 +1,36 @@
 public class Vendor extends Person
 {
-  int vendorID;
+  String strBaseBuildResults;
+  String strDatabaseType;
+  String strRetCreationData;
+  String orgRelationship;
+  int intVendorID;
+  String strVendorID;
+  String passedVendorID;
   
-  public void setRelationshipType()
+  public String setRelationshipType()
   {
-    String personType="Vendor";
-    this.orgRelationship=personType;
-        System.out.println ("The relationship is "+this.orgRelationship);
+    orgRelationship="Vendor";
+    System.out.println ("The database Type is "+orgRelationship);
+    
+    return orgRelationship;
   }
 
-  public void setID(int newID)
+  public String setID(int newID)
   {
-    this.vendorID=newID;
-    System.out.println ("New name is "+this.vendorID);
+    intVendorID=newID+1;
+    strVendorID=String.valueOf(intVendorID);
+    System.out.println ("Assigned Vendor ID is "+strVendorID);
+    
+    return strVendorID;
   }
 
-  public String newUser(String first, String last, String address, String phone, String email)
+  public String newUser(String first, String last, String address, String phone, String email, int highID)
   {
-
-    return "";
+    strDatabaseType=setRelationshipType();
+    strBaseBuildResults=buildBaseUser(first, last, address, phone, email);
+    passedVendorID=setID(highID);
+    strRetCreationData=strDatabaseType+","+strBaseBuildResults+","+passedVendorID;
+    return strRetCreationData;
   }
 }

@@ -1,6 +1,5 @@
 public class Employee extends Person
 {
-  int employeeID;
   String strBaseBuildResults;
   String strDatabaseType;
   String strRetCreationData;
