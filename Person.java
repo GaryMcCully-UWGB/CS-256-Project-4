@@ -1,41 +1,44 @@
 public class Person
 {
-  public String firstName;
-  public String lastName;
-  public String address;
-  public String phoneNumber;
-  public String emailAddress;
+  private String company;
+  private String firstName;
+  private String lastName;
+  private String address;
+  private String phoneNumber;
+  private String emailAddress;
 
-  public String setID()
+  protected String setID()
   {
     return "";
   }
   
-  public String setRelationshipType()
+  protected String setRelationshipType()
   {
     return "";
   }
   
-  public String newUser()
+  protected String newUser()
   {
     return "";
   }
 
-  public String buildBaseUser(String newFirstName, String newLastName, String newAddress, String newPhoneNumber, String newEmailAddress)
+  protected String buildBaseUser(String newCompany,String newFirstName, String newLastName, String newAddress, String newPhoneNumber, String newEmailAddress)
   {
+    this.company=newCompany;
     this.firstName=newFirstName;
     this.lastName=newLastName;
     this.address=newAddress;
     this.phoneNumber=newPhoneNumber;
     this.emailAddress=newEmailAddress;
 
+    System.out.println("Company is "+ this.company);
     System.out.println("First Name is "+ this.firstName);
     System.out.println("Last Name is "+ this.lastName);
     System.out.println("Address is "+this.address);
     System.out.println("Phone Number is "+this.phoneNumber);
     System.out.println("E-Mail Address is "+this.emailAddress);
 
-    String formattedString= this.firstName+","+this.lastName+","+this.address+","+this.phoneNumber+","+this.emailAddress;
+    String formattedString= this.firstName+","+this.firstName+","+this.lastName+","+this.address+","+this.phoneNumber+","+this.emailAddress;
 
     return formattedString;
   }

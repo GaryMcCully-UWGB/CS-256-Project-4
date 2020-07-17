@@ -8,7 +8,7 @@ public class Customer extends Person
   String strCustomerID;
   String passedCustomerID;
   
-  public String setRelationshipType()
+  protected String setRelationshipType()
   {
     orgRelationship="Customer";
     System.out.println ("The database Type is "+orgRelationship);
@@ -16,7 +16,7 @@ public class Customer extends Person
     return orgRelationship;
   }
 
-  public String setID(int newID)
+  protected String setID(int newID)
   {
     intCustomerID=newID+1;
     strCustomerID=String.valueOf(intCustomerID);
@@ -25,10 +25,10 @@ public class Customer extends Person
     return strCustomerID;
   }
 
-  public String newUser(String first, String last, String address, String phone, String email, int highID)
+  protected String newUser(String company,String first, String last, String address, String phone, String email, int highID)
   {
     strDatabaseType=setRelationshipType();
-    strBaseBuildResults=buildBaseUser(first, last, address, phone, email);
+    strBaseBuildResults=buildBaseUser(company, first, last, address, phone, email);
     passedCustomerID=setID(highID);
     strRetCreationData=strDatabaseType+","+strBaseBuildResults+","+passedCustomerID;
     return strRetCreationData;

@@ -13,7 +13,7 @@ public class CRMClass
   int currentCustNumber=0;
   int currentVendNumber=0;
   
-  public void updateDatabase()
+  private void updateDatabase()
   {
     //Define Variables
     FileWriter myWriter;
@@ -60,7 +60,7 @@ public class CRMClass
     userMenu();
   }
 
-  public void updateDatabaseEntry()
+  private void updateDatabaseEntry()
   {
     //Define variables
     String strSelection;
@@ -89,13 +89,26 @@ public class CRMClass
       System.out.println("Invalid Selection");
       userMenu();
     }
+
     databaseEntry=crmDatabase.get(intSelection);
     System.out.println(databaseEntry);
     String strArray1[]= databaseEntry.split(",");
-    String strArray2[]={"Type","First Name", "Last Name", "Address", "Phone Number","E-mail Address", strArray1[0]+" Number"};
+    String strArray2[]={"Type","Company","First Name", "Last Name", "Address", "Phone Number","E-mail Address", strArray1[0]+" Number"};
 
     /*The database type and number should not be edited.To avoid modification of these values, these fields are not presented to the end user during the update*/
-    for(int j=1; j<6; j++)
+
+    //This code is needed to ensure employee Company database field is not changed
+    int CountStart;
+    if(strArray1[0].equals("Employee"))
+    {
+      CountStart=2;
+    }
+    else
+    {
+      CountStart=1;
+    }
+
+    for(int j=CountStart; j<7; j++)
     {
         System.out.println(strArray2[j]+" value is "+strArray1[j]);
         System.out.println("Do you want to change this value? 'Y' for yes, 'N' for No");
@@ -117,19 +130,19 @@ public class CRMClass
       }
 
     }
-
-    updatedEntry=strArray1[0]+","+strArray1[1]+","+strArray1[2]+","+strArray1[3]+","+strArray1[4]+","+strArray1[5]+","+strArray1[6];
+    
+    updatedEntry=strArray1[0]+","+strArray1[1]+","+strArray1[2]+","+strArray1[3]+","+strArray1[4]+","+strArray1[5]+","+strArray1[6]+","+strArray1[7];
 
     crmDatabase.remove(intSelection);
     crmDatabase.add(intSelection, updatedEntry);
     databaseEntry=crmDatabase.get(intSelection);
     System.out.println(databaseEntry);
-
+    
     updateDatabase();
     userMenu();
   }
 
-  public void deleteDatabaseEntry()
+  private void deleteDatabaseEntry()
   {
     //Declare variables
     String strSelection;
@@ -163,11 +176,12 @@ public class CRMClass
     userMenu();
   }
 
-  public void createDatabaseEntry()
+  private void createDatabaseEntry()
   {
     int intSelection;
     String strSelection;
     String newUserCreation;
+    String strEmployeeCompany;
 
     Employee employee;
     Customer customer;
@@ -176,7 +190,7 @@ public class CRMClass
     String[] empInfo;
     String[] custInfo;
     String[] vendInfo;
-    String[] createdFields = {"First Name: ", "Last Name: ", "Address: ", "Phone Number: ", "E-Mail Address: "};
+    String[] createdFields = {"Company Name: ","First Name: ", "Last Name: ", "Address: ", "Phone Number: ", "E-Mail Address: "};
 
     System.out.println("Enter '1' for new employee.");
     System.out.println("Enter '2' for new customer.");
@@ -200,43 +214,44 @@ public class CRMClass
     {
       case 1:
         employee=new Employee();
-        empInfo=new String[5];
+        empInfo=new String[6];
+        strEmployeeCompany="Widgets Inc";
 
-        for(int i=0; i<5; i++)
+        for(int i=1; i<6; i++)
         {
           System.out.println(createdFields[i]);
           empInfo[i]=user_input.nextLine();
         }
      
-        newUserCreation=employee.newUser(empInfo[0],empInfo[1],empInfo[2],empInfo[3], empInfo[4], currentEmpNumber);
+        newUserCreation=employee.newUser(strEmployeeCompany,empInfo[1],empInfo[2],empInfo[3],empInfo[4], empInfo[5], currentEmpNumber);
         crmDatabase.add(newUserCreation);
         currentEmpNumber++;
         break;
       case 2:
         customer=new Customer();
-        custInfo=new String[5];
+        custInfo=new String[6];
 
-        for(int i=0; i<5; i++)
+        for(int i=0; i<6; i++)
         {
           System.out.println(createdFields[i]);
           custInfo[i]=user_input.nextLine();
         }
      
-        newUserCreation=customer.newUser(custInfo[0],custInfo[1],custInfo[2],custInfo[3], custInfo[4], currentCustNumber);
+        newUserCreation=customer.newUser(custInfo[0],custInfo[1],custInfo[2],custInfo[3], custInfo[4],custInfo[5], currentCustNumber);
         crmDatabase.add(newUserCreation);
         currentCustNumber++;
         break;
       default:
         vendor=new Vendor();
-        vendInfo=new String[5];
+        vendInfo=new String[6];
 
-        for(int i=0; i<5; i++)
+        for(int i=0; i<6; i++)
         {
           System.out.println(createdFields[i]);
           vendInfo[i]=user_input.nextLine();
         }
      
-        newUserCreation=vendor.newUser(vendInfo[0],vendInfo[1],vendInfo[2],vendInfo[3], vendInfo[4], currentVendNumber);
+        newUserCreation=vendor.newUser(vendInfo[0],vendInfo[1],vendInfo[2],vendInfo[3], vendInfo[4],vendInfo[5], currentVendNumber);
         crmDatabase.add(newUserCreation);
         currentVendNumber++;
     }
@@ -245,7 +260,7 @@ public class CRMClass
 
   }
 
-  public void listPrintCRMDatabase()
+  private void listPrintCRMDatabase()
   {
     //Declare variables
     String strRawData;
@@ -254,10 +269,10 @@ public class CRMClass
     {
       strRawData=crmDatabase.get(i);
       String strArray1[]= strRawData.split(",");
-      String strArray2[]={"Type: ","First Name: ", "Last Name: ", "Address: ", "Phone Number: ","E-mail Address: ", strArray1[0]+" Number: "};
+      String strArray2[]={"Type: ","Company Name: ","First Name: ", "Last Name: ", "Address: ", "Phone Number: ","E-mail Address: ", strArray1[0]+" Number: "};
 
       System.out.println("\nDatabase Entry: " + i);
-      for(int j=0; j<7; j++)
+      for(int j=0; j<8; j++)
       {
         System.out.println(strArray2[j]+strArray1[j]);
       }
@@ -265,7 +280,7 @@ public class CRMClass
     userMenu();
   }
 
-  public void loadDatabase()
+  private void loadDatabase()
   {
     int intID;
     File database;
@@ -281,7 +296,7 @@ public class CRMClass
 
         //Parse out ID numbers to track next ID to be assigned
         String strArray1[]= data.split(",");
-        intID = Integer.parseInt(strArray1[6]);
+        intID = Integer.parseInt(strArray1[7]);
 
         if (data.contains("Employee"))
         {
@@ -322,7 +337,7 @@ public class CRMClass
   }
 
   //Method used to provide user options
-  public void userMenu()
+  private void userMenu()
   {
     int intSelection;
     String strSelection;
@@ -332,7 +347,7 @@ public class CRMClass
     System.out.println("Select '3' to update a database entry");
     System.out.println("Select '4' to create a new database entry");
     System.out.println("Select '5' to delete a database entry");
-    System.out.println("Select '6' to delete current database and re-write with updates");
+    System.out.println("Select '6' to delete current database and re-write with \nupdates (File is stored as Database.txt)");
 
     strSelection=user_input.nextLine();
     if(strSelection.matches("^[1-6]{1}$"))
