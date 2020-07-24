@@ -13,6 +13,16 @@ public class CRMClass
   int currentCustNumber=0;
   int currentVendNumber=0;
   
+  private void commaCheck(String strUserInput)
+  {
+    System.out.println(strUserInput);
+    if(strUserInput.matches("^.*[,].*$"))
+    {
+      System.out.println ("User input contains a comma.");
+      System.out.println("Please reperform operation without entering any commas.");
+      userMenu();
+    }
+  }
   private void updateDatabase()
   {
     //Define Variables
@@ -117,6 +127,7 @@ public class CRMClass
       {
         System.out.println("Enter new "+ strArray2[j]+ " value");
         strSelection=user_input.nextLine();
+        commaCheck(strSelection);
         strArray1[j]=strSelection;
       }
       else if(strSelection.matches("^[N]{1}$"))
@@ -221,6 +232,7 @@ public class CRMClass
         {
           System.out.println(createdFields[i]);
           empInfo[i]=user_input.nextLine();
+          commaCheck(empInfo[i]);
         }
      
         newUserCreation=employee.newUser(strEmployeeCompany,empInfo[1],empInfo[2],empInfo[3],empInfo[4], empInfo[5], currentEmpNumber);
@@ -235,6 +247,7 @@ public class CRMClass
         {
           System.out.println(createdFields[i]);
           custInfo[i]=user_input.nextLine();
+          commaCheck(custInfo[i]);
         }
      
         newUserCreation=customer.newUser(custInfo[0],custInfo[1],custInfo[2],custInfo[3], custInfo[4],custInfo[5], currentCustNumber);
@@ -249,6 +262,7 @@ public class CRMClass
         {
           System.out.println(createdFields[i]);
           vendInfo[i]=user_input.nextLine();
+          commaCheck(vendInfo[i]);
         }
      
         newUserCreation=vendor.newUser(vendInfo[0],vendInfo[1],vendInfo[2],vendInfo[3], vendInfo[4],vendInfo[5], currentVendNumber);
